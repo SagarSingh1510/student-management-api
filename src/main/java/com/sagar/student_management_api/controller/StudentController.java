@@ -8,11 +8,14 @@ import com.sagar.student_management_api.services.StudentService;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -49,6 +52,14 @@ public class StudentController {
         return studentService.addStudent(student);
     }
     
+    @PutMapping("students/{id}")
+    public Student updateStudent(@PathVariable int id, @RequestBody Student updatedStudent) {
+        return studentService.updateStudent(id, updatedStudent);
+    }
     
-    
+
+    @DeleteMapping("students/{id}")
+    public String deleteStudent(@PathVariable int id){
+        return studentService.deleteStudent(id);
+    }
 }
