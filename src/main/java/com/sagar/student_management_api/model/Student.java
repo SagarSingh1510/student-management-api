@@ -1,8 +1,19 @@
 package com.sagar.student_management_api.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
 public class Student {
+    @Id
     private int id;
+    @NotBlank(message = "Name cannot be empty")
     private String name;
+
+    @Email(message = "Invalid Email format")
+    @NotBlank(message="Email cannot be empty")
     private String email;
     public Student(){
 

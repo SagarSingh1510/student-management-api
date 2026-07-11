@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sagar.student_management_api.model.Student;
 import com.sagar.student_management_api.services.StudentService;
 
+import jakarta.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +50,12 @@ public class StudentController {
     }
     
     @PostMapping("/students")
-    public Student addStudent(@RequestBody Student student) {
+    public Student addStudent(@Valid @RequestBody Student student) {
         return studentService.addStudent(student);
     }
     
     @PutMapping("students/{id}")
-    public Student updateStudent(@PathVariable int id, @RequestBody Student updatedStudent) {
+    public Student updateStudent(@PathVariable int id,@Valid @RequestBody Student updatedStudent) {
         return studentService.updateStudent(id, updatedStudent);
     }
     

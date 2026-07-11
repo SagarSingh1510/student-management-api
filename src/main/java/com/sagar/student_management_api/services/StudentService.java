@@ -6,51 +6,37 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sagar.student_management_api.model.Student;
+import com.sagar.student_management_api.repository.StudentRepository;
 
 @Service
 public class StudentService {
-    private List<Student> students= new ArrayList<>();
-    public StudentService(){
-        students.add(new Student(1, "Sagar", "singh@gmail.com"));
-        students.add(new Student(2, "Harsh", "singh1@gmail.com"));
-        students.add(new Student(3, "Pawan", "singh2@gmail.com"));
+    private final StudentRepository studentRepository;
+    public StudentService(StudentRepository studentRepository){
+        this.studentRepository=studentRepository;
     }
+    
     public List<Student> getStudents(){
-        return students;
+        return studentRepository.findAll();
     }
 
     public Student getStudentById(int id){
-        for(Student student: students){
-            if(student.getId()==id){
-                return student;
-            }
-        }
-        return null;
+        return studentRepository.findById(id).orElse(null);
     }
 
     public Student addStudent(Student student){
-        students.add(student);
-        return students.getLast();
+        return studentRepository.save(student);
     }
 
     public Student updateStudent(int id,Student updatedStudent){
-        for(Student student:students){
-            if(student.getId()==id){
-                student.setName(updatedStudent.getName());
-                student.setEmail(updatedStudent.getEmail());
-                return student;
-            }
-        }
-        return null;
+        updatedStudent.setId(id);
+        return studentRepository.save(updatedStudent);
     }
 
     public String deleteStudent(int id){
-        for(Student student:students){
-            if(student.getId()==id){
-                students.remove(student);
-                return "Student deleted sucessfully";
-            }
+        if(studentRepository.existsById(id)){
+            studentRepository.deleteById(id);
+            return "Deleted Sucessfully";
         }
-        return "No student found";
+        return "Student not found";
     }
 }
