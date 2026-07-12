@@ -2,66 +2,60 @@ package com.sagar.student_management_api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sagar.student_management_api.dto.StudentResponseDTO;
 import com.sagar.student_management_api.model.Student;
 import com.sagar.student_management_api.services.StudentService;
 
 import jakarta.validation.Valid;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
 
 
 @RestController
+@RequestMapping("/students")
 public class StudentController {
     private final StudentService studentService;
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
-    @GetMapping("/")
-    public String home() {
-        return "Welcome to Student Management API!";
-    }
-    @GetMapping("/about")
-    public String about() {
-        return "This project is built using Spring Boot";
-    }
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello Sagar!";
-    }
-    @GetMapping("/students")
-        public List<Student> students(){
-            return studentService.getStudents();
-        }
-
-    @GetMapping("/students/{id}")
-    public Student getStudentById(@PathVariable int id) {
+    
+    @GetMapping("/{id}")
+    public StudentResponseDTO getStudentById(@PathVariable Integer id) {
         return studentService.getStudentById(id);
     }
     
-    @PostMapping("/students")
+    @PostMapping
     public Student addStudent(@Valid @RequestBody Student student) {
         return studentService.addStudent(student);
     }
     
-    @PutMapping("students/{id}")
-    public Student updateStudent(@PathVariable int id,@Valid @RequestBody Student updatedStudent) {
+    @PutMapping("/{id}")
+    public StudentResponseDTO updateStudent(@PathVariable Integer id,@Valid @RequestBody Student updatedStudent) {
         return studentService.updateStudent(id, updatedStudent);
     }
     
 
-    @DeleteMapping("students/{id}")
-    public String deleteStudent(@PathVariable int id){
+    @DeleteMapping("/{id}")
+    public String deleteStudent(@PathVariable Integer id){
         return studentService.deleteStudent(id);
     }
+    
+    @GetMapping
+    public Page<Student> getStudents(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size,@RequestParam(defaultValue="id") String sortField, @RequestParam(defaultValue = "asc") String direction,@RequestParam(required=false) String name){
+        return studentService.getStudents(page, size,sortField,direction,name);
+    }
+    
 }
