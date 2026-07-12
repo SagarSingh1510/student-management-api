@@ -204,13 +204,13 @@ https://student-management-api-thjc.onrender.com/swagger-ui/index.html
 
 ### Get Students
 
-![GET](screenshots/Postman-GetStudent.png)
+![GET](screenshots/postman-GetStudent.png)
 
 ---
 
 ### Create Student
 
-![POST](screenshots/postman-PostStudent.png)
+![POST](screenshots/Postman-PostStudent.png)
 
 ---
 
