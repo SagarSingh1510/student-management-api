@@ -11,19 +11,19 @@ A production-ready RESTful Student Management API built using **Spring Boot**, *
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 
-### 🌐 Live API
+###  Live API
 
 https://student-management-api-thjc.onrender.com
 
-### 📖 Swagger API Documentation
+###  Swagger API Documentation
 
 https://student-management-api-thjc.onrender.com/swagger-ui/index.html
 
 ---
 
-## ✨ Features
+##  Features
 
 - ✅ Create, Read, Update and Delete Students
 - ✅ PostgreSQL Database Integration
@@ -39,7 +39,7 @@ https://student-management-api-thjc.onrender.com/swagger-ui/index.html
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Technology | Purpose |
 |------------|----------|
@@ -57,7 +57,7 @@ https://student-management-api-thjc.onrender.com/swagger-ui/index.html
 
 ---
 
-## 🏗 Architecture
+##  Architecture
 
 ```
                 Client
@@ -84,7 +84,7 @@ The application follows a layered architecture where each layer has a single res
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 src
@@ -102,7 +102,7 @@ src
 
 ---
 
-## 📚 REST API Endpoints
+##  REST API Endpoints
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
@@ -132,7 +132,7 @@ GET /students?name=Sagar
 
 ---
 
-## ▶ Running Locally
+##  Running Locally
 
 Clone the repository
 
@@ -160,7 +160,7 @@ mvn spring-boot:run
 
 ---
 
-## 🐳 Running with Docker
+##  Running with Docker
 
 Build
 
@@ -182,7 +182,7 @@ docker compose up
 
 ---
 
-## ☁ Deployment
+##  Deployment
 
 The application is deployed on **Render** with a managed **PostgreSQL** database.
 
@@ -194,7 +194,7 @@ Swagger:
 
 https://student-management-api-thjc.onrender.com/swagger-ui/index.html
 
-## 📸 Screenshots
+##  Screenshots
 
 ### Swagger UI
 
@@ -220,7 +220,7 @@ https://student-management-api-thjc.onrender.com/swagger-ui/index.html
 
 ---
 
-## 📈 Future Improvements
+##  Future Improvements
 
 - Spring Security
 - JWT Authentication
@@ -232,7 +232,7 @@ https://student-management-api-thjc.onrender.com/swagger-ui/index.html
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 **Sagar Singh**
 
