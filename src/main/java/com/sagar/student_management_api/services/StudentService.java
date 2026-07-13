@@ -3,6 +3,8 @@ package com.sagar.student_management_api.services;
 
 import com.sagar.student_management_api.dto.StudentResponseDTO;
 import com.sagar.student_management_api.exception.GlobalExceptionHandler;
+import com.sagar.student_management_api.exception.SortFieldNotFoundException;
+import com.sagar.student_management_api.exception.StudentNotFoundException;
 import com.sagar.student_management_api.mapper.StudentMapper;
 
 import java.util.List;
@@ -18,12 +20,10 @@ import com.sagar.student_management_api.repository.StudentRepository;
 
 @Service
 public class StudentService {
-    private final GlobalExceptionHandler globalExceptionHandler;
     private final StudentRepository studentRepository;
     private static final List<String> ALLOWED_FIELDS= List.of("id","name","email");
-    public StudentService(StudentRepository studentRepository, GlobalExceptionHandler globalExceptionHandler){
+    public StudentService(StudentRepository studentRepository){
         this.studentRepository=studentRepository;
-        this.globalExceptionHandler = globalExceptionHandler;
     }
     
     public List<StudentResponseDTO> getStudents(){
@@ -32,38 +32,44 @@ public class StudentService {
     }
 
     public StudentResponseDTO getStudentById(Integer id){
-            Student student=studentRepository.findById(id).orElse(null);
+            Student student=studentRepository.findById(id).orElseThrow(()-> new StudentNotFoundException("Student with id "+id+" not found"));
             return StudentMapper.toDTO(student);
     }
 
-    public Student addStudent(Student student){
-        return studentRepository.save(student);
+    public StudentResponseDTO addStudent(Student student){
+        Student std=studentRepository.save(student);
+        return StudentMapper.toDTO(std);
     }
 
     public StudentResponseDTO updateStudent(Integer id,Student updatedStudent){
+        if(!studentRepository.existsById(id)){
+            throw new StudentNotFoundException("Student with ID "+ id+ " not found.");
+        }
         updatedStudent.setId(id);
         Student student=studentRepository.save(updatedStudent);
         return StudentMapper.toDTO(student);
     }
 
     public String deleteStudent(Integer id){
-        if(studentRepository.existsById(id)){
-            studentRepository.deleteById(id);
-            return "Deleted Sucessfully";
+        if(!studentRepository.existsById(id)){
+            throw new StudentNotFoundException("Student with ID "+id+" not found.");
         }
-        return "Student not found";
+        studentRepository.deleteById(id);
+        return "Student with ID "+ id +" Deleted Sucessfully";
     }
 
-    public Page<Student> getStudents(int page,int size,String sortField, String direction, String name){
+    public Page<StudentResponseDTO> getStudents(int page,int size,String sortField, String direction, String name){
         if(!ALLOWED_FIELDS.contains(sortField)){
-            return null;
+            throw new SortFieldNotFoundException("Invalid Sort Field: "+ sortField);
         }
         
         Sort sort= direction.equalsIgnoreCase("desc")?Sort.by(sortField).descending():Sort.by(sortField).ascending();
         Pageable pageable = PageRequest.of(page,size,sort);
-
-        if(name!= null && !name.isBlank())return studentRepository.findByName(name, pageable);
-        return studentRepository.findAll(pageable);
+        Page<Student> students;
+        if(name!= null && !name.isBlank())students=studentRepository.findByName(name, pageable);
+        else students=studentRepository.findAll(pageable);
+        
+        return students.map(StudentMapper::toDTO);
     }
 
     

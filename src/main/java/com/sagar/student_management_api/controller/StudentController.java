@@ -38,7 +38,7 @@ public class StudentController {
     }
     
     @PostMapping
-    public Student addStudent(@Valid @RequestBody Student student) {
+    public StudentResponseDTO addStudent(@Valid @RequestBody Student student) {
         return studentService.addStudent(student);
     }
     
@@ -54,7 +54,7 @@ public class StudentController {
     }
     
     @GetMapping
-    public Page<Student> getStudents(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size,@RequestParam(defaultValue="id") String sortField, @RequestParam(defaultValue = "asc") String direction,@RequestParam(required=false) String name){
+    public Page<StudentResponseDTO> getStudents(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size,@RequestParam(defaultValue="id") String sortField, @RequestParam(defaultValue = "asc") String direction,@RequestParam(required=false) String name){
         return studentService.getStudents(page, size,sortField,direction,name);
     }
     

@@ -16,4 +16,16 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<String> handleStudentNotFoundException(StudentNotFoundException e){
+        String errorMessage=e.getMessage();
+        return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SortFieldNotFoundException.class)
+    public ResponseEntity<String> handleSortFieldNotFoundException(SortFieldNotFoundException e){
+        String errorMessage=e.getMessage();
+        return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+    }
 }
