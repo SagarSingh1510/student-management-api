@@ -13,10 +13,6 @@ A production-ready RESTful Student Management API built using **Spring Boot**, *
 
 ##  Live Demo
 
-###  Live API
-
-https://student-management-api-thjc.onrender.com
-
 ###  Swagger API Documentation
 
 https://student-management-api-thjc.onrender.com/swagger-ui/index.html
